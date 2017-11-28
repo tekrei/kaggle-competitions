@@ -1,0 +1,4 @@
+*.csv
+__pycache__
+checkpoint
+spark-warehouse
