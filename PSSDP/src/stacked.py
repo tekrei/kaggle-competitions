@@ -1,4 +1,4 @@
-# based on https://www.kaggle.com/yekenot/simple-stacker-lb-0-284
+# The source code is based on https://www.kaggle.com/yekenot/simple-stacker-lb-0-284
 
 import gc
 import time
@@ -6,9 +6,6 @@ import time
 import pandas as pd
 from catboost import CatBoostClassifier
 from lightgbm import LGBMClassifier
-# Regularized Greedy Forest
-# https://github.com/fukatani/rgf_python
-# from rgf.sklearn import RGFClassifier
 from sklearn.ensemble import (AdaBoostClassifier, ExtraTreesClassifier,
                               GradientBoostingClassifier,
                               RandomForestClassifier)
@@ -19,6 +16,7 @@ from ensemble import Ensemble
 from utility import read_data, preprocess
 
 start = time.time()
+
 # Read in our input data
 df_train, df_test = read_data()
 
@@ -35,7 +33,6 @@ df_train = None
 df_test = None
 
 print("Loaded and prepared data in %.2f seconds" % (time.time() - start))
-
 
 gc.collect()
 
@@ -134,19 +131,6 @@ cat_params = {
     'gradient_iterations': 4
 }
 
-
-# Regularized Greedy Forest params
-rgf_params = {
-    'max_leaf': 1000,
-    'learning_rate': 0.5,
-    'algorithm': "RGF_Sib",
-    'test_interval': 100,
-    'min_samples_leaf': 3,
-    'reg_depth': 1.0,
-     'l2': 0.5,
-    'sl2': 0.005
-}
-
 # Gradient Boosting params
 gb_params = {
     'max_depth': 6,
@@ -159,14 +143,13 @@ models = {
     "LGB-1": LGBMClassifier(**lgb_params),
     "XGB-1": XGBClassifier(**xgb_params),
     "LGB-2": LGBMClassifier(**lgb_params2),
-	#"LGB-3": LGBMClassifier(**lgb_params3),
+    #"LGB-3": LGBMClassifier(**lgb_params3),
     "XGB-2": XGBClassifier(**xgb_params2),
     #"CAT": CatBoostClassifier(**cat_params),
-	#"GBM": GradientBoostingClassifier(**gb_params),
-	#"RF": RandomForestClassifier(**rf_params),
-	#"ET": ExtraTreesClassifier(**et_params),
-	#"RGF": RGFClassifier(**rgf_params),
-	#"ABC": AdaBoostClassifier(n_estimators=100),
+    #"GBM": GradientBoostingClassifier(**gb_params),
+    #"RF": RandomForestClassifier(**rf_params),
+    #"ET": ExtraTreesClassifier(**et_params),
+    #"ABC": AdaBoostClassifier(n_estimators=100),
 }
 
 start = time.time()
